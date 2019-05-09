@@ -1,15 +1,14 @@
-import { Injectable } from '@angular/core';
+﻿import { Injectable } from '@angular/core';
 import { HttpRequest, HttpResponse, HttpHandler, HttpEvent, HttpInterceptor, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
 import { delay, mergeMap, materialize, dematerialize } from 'rxjs/operators';
-
-import { User } from '@/_model';
+import { User } from "../_models";
 
 @Injectable()
 export class FakeBackendInterceptor implements HttpInterceptor {
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const users: User[] = [
-            { id: 1, username: 'test', password: 'test', firstName: 'Test', lastName: 'User', email: 'test@gmail.com', role: [{name: 'ADMIN'}]}
+            { id: 1, username: 'test', password: 'test', firstName: 'Test', lastName: 'User' }
         ];
 
         const authHeader = request.headers.get('Authorization');
@@ -41,9 +40,9 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             return next.handle(request);
         }))
         // call materialize and dematerialize to ensure delay even if an error is thrown (https://github.com/Reactive-Extensions/RxJS/issues/648)
-            .pipe(materialize())
-            .pipe(delay(500))
-            .pipe(dematerialize());
+        .pipe(materialize())
+        .pipe(delay(500))
+        .pipe(dematerialize());
 
         // private helper functions
 

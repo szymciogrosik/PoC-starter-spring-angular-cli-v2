@@ -1,4 +1,4 @@
-const webpack = require('webpack');
+﻿const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 
@@ -32,8 +32,7 @@ module.exports = {
         new webpack.DefinePlugin({
             // global app config object
             config: JSON.stringify({
-                backendUrl: 'http://localhost:4200',
-                tokenName: 'token'
+                apiUrl: 'http://localhost:4000',
             })
         })
     ],
@@ -44,8 +43,6 @@ module.exports = {
         runtimeChunk: true
     },
     devServer: {
-        inline:true,
-        port: 4200,
         historyApiFallback: true
     }
 };

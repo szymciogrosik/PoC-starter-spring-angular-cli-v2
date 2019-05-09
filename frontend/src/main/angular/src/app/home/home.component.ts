@@ -1,11 +1,14 @@
-import { Component } from '@angular/core';
-import { first } from 'rxjs/operators';
+import { Component, OnInit } from '@angular/core';
+import { User } from "../_models";
+import { first } from "rxjs/operators";
+import { UserService } from "../_services";
 
-import { User } from '@/_model';
-import { UserService, AuthenticationService } from '@/_service';
-
-@Component({ templateUrl: 'home.component.html' })
-export class HomeComponent {
+@Component({
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css']
+})
+export class HomeComponent implements OnInit {
   users: User[] = [];
 
   constructor(private userService: UserService) { }
@@ -15,4 +18,5 @@ export class HomeComponent {
       this.users = users;
     });
   }
+
 }
