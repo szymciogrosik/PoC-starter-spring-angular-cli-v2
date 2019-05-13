@@ -37,7 +37,7 @@ public class JwtTokenUtil {
         return subject;
     }
 
-    public Date getCreatedDateFromToken(String token) {
+    private Date getCreatedDateFromToken(String token) {
         Date created;
         try {
             final Claims claims = getClaimsFromToken(token);
@@ -48,7 +48,7 @@ public class JwtTokenUtil {
         return created;
     }
 
-    public Date getExpirationDateFromToken(String token) {
+    private Date getExpirationDateFromToken(String token) {
         Date expirationDate;
         try {
             final Claims claims = getClaimsFromToken(token);
@@ -76,7 +76,7 @@ public class JwtTokenUtil {
         return new Date(System.currentTimeMillis() + expiration * 1000);
     }
 
-    private Boolean isTokenExpired(String token) {
+    public Boolean isTokenExpired(String token) {
         final Date expirationDate = getExpirationDateFromToken(token);
         return expirationDate.before(new Date());
     }
@@ -92,7 +92,7 @@ public class JwtTokenUtil {
         return generateToken(claims);
     }
 
-    public String generateToken(Map<String, Object> claims) {
+    private String generateToken(Map<String, Object> claims) {
         return Jwts.builder()
                 .setClaims(claims)
                 .setExpiration(generateExpirationDate())
@@ -118,14 +118,13 @@ public class JwtTokenUtil {
         return refreshedToken;
     }
 
-    public Boolean validateToken(String token, UserDetails userDetails) {
-        User user = (User) userDetails;
+    public Boolean validateToken(String token, User user) {
         final String username = getUsernameFromToken(token);
         final Date created = getCreatedDateFromToken(token);
         return (
                 username.equals(user.getUsername())
                         && !isTokenExpired(token)
-                        && !isCreatedBeforeLastPasswordReset(created, user.getAccountCreation()));
+                        && !isCreatedBeforeLastPasswordReset(created, user.getAccountCreationDate()));
     }
 
 }

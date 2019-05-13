@@ -1,7 +1,7 @@
 spring:
   datasource:
     default-catalog: db
-    url: jdbc:h2:~/test3
+    url: jdbc:h2:~/test10
     data-username: sa
     data-password:
   jpa:
@@ -11,7 +11,7 @@ spring:
       format-sql: true
       show-sql: true
       globally-quoted-identifiers: true
-      ddl-auto: create
+      ddl-auto: update
 
 data:
   max-page-size: 10

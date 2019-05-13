@@ -23,8 +23,7 @@ import java.util.List;
 public class User implements UserDetails{
 
     @Id
-    @JsonIgnore
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String username;
     @JsonIgnore
@@ -32,8 +31,9 @@ public class User implements UserDetails{
     private String firstname;
     private String lastname;
     private String email;
-    private Date accountCreation;
-    private Date lastModification;
+    private Boolean banned;
+    private Date accountCreationDate;
+    private Date lastModificationDate;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "User_Role",
@@ -50,23 +50,10 @@ public class User implements UserDetails{
                 ", firstname='" + firstname + '\'' +
                 ", lastname='" + lastname + '\'' +
                 ", email='" + email + '\'' +
-                ", accountCreation=" + accountCreation +
-                ", lastModification=" + lastModification +
+                ", accountCreationDate=" + accountCreationDate +
+                ", lastModificationDate=" + lastModificationDate +
                 '}';
     }
-
-    //    @Override
-//    public String toString() {
-//        return "User{" +
-//                "id=" + id +
-//                ", username='" + username + '\'' +
-//                ", password='" + password + '\'' +
-//                ", firstname='" + firstname + '\'' +
-//                ", lastname='" + lastname + '\'' +
-//                ", email='" + email + '\'' +
-//                //", roles='" + roles.toString() + '\'' +
-//                '}';
-//    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -98,4 +85,5 @@ public class User implements UserDetails{
     public boolean isEnabled() {
         return true;
     }
+
 }

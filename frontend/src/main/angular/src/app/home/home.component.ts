@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from "../_models";
-import { first } from "rxjs/operators";
-import { UserService } from "../_services";
+import { User } from '../_models';
+import { first } from 'rxjs/operators';
+import {AuthenticationService, UserService} from '../_services';
 
 @Component({
   selector: 'app-home',
@@ -11,12 +11,13 @@ import { UserService } from "../_services";
 export class HomeComponent implements OnInit {
   users: User[] = [];
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService,
+              private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
-    this.userService.getAll().pipe(first()).subscribe(users => {
-      this.users = users;
-    });
+    // this.userService.getAll().pipe(first()).subscribe(users => {
+    //   this.users = users;
+    // });
   }
 
 }

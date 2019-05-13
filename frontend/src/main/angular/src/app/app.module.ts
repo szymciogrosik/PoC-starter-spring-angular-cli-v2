@@ -3,15 +3,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
-// used to create fake backend
-import { fakeBackendProvider } from './_helpers';
-
 import { AppComponent } from './app.component';
 
 import { JwtInterceptor, ErrorInterceptor } from './_helpers';
-import { routing } from "./app-routing.module";
+import { routing } from './app-routing.module';
 import { HomeComponent } from './home';
 import { LoginComponent } from './login';
+import { NavbarComponent } from './navbar';
 
 @NgModule({
   imports: [
@@ -23,14 +21,12 @@ import { LoginComponent } from './login';
   declarations: [
     AppComponent,
     HomeComponent,
-    LoginComponent
+    LoginComponent,
+    NavbarComponent
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-
-    // provider used to create fake backend
-    fakeBackendProvider
   ],
   bootstrap: [AppComponent]
 })
